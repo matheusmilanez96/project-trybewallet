@@ -20,7 +20,7 @@ class Header extends Component {
     );
   }
 }
-// npm run cy -- --spec cypress/e2e/_requirements/02.Header.cy.js
+
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
