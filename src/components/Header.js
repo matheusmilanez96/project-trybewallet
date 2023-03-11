@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Header extends Component {
   render() {
+    const { email } = this.props;
     return (
-      <div>Header</div>
+      <div>
+        <h2 data-testid="email-field">
+          { email }
+        </h2>
+        <h3 data-testid="total-field">
+          0
+        </h3>
+        <h4 data-testid="header-currency-field">
+          BRL
+        </h4>
+      </div>
     );
   }
 }
+// npm run cy -- --spec cypress/e2e/_requirements/02.Header.cy.js
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+});
 
-export default Header;
+Header.propTypes = {
+  email: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(Header);

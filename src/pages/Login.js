@@ -96,6 +96,4 @@ Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => {};
-
-export default connect(mapStateToProps)(Login);
+export default connect(null)(Login);
