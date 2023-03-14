@@ -4,13 +4,14 @@ import userEvent from '@testing-library/user-event';
 
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
+import Wallet from '../pages/Wallet';
 
 const emailInput = 'email-input';
 const pwdInput = 'password-input';
 const fakeEmail = 'email@gmail.com';
 const fakePwd = 'senha123';
 
-describe('Testes na página de login', () => {
+describe('Testes para o projeto', () => {
   test('Verifica se os elementos estão sendo renderizados', () => {
     renderWithRouterAndRedux(<App />);
 
@@ -40,7 +41,7 @@ describe('Testes na página de login', () => {
     const { pathname } = history.location;
     expect(pathname).toBe('/');
   });
-  test('Verifica se é redirecionado para a página carteira ao clicar no botão e se os elementos do header estão na página', () => {
+  test('Verifica se é redirecionado para a página carteira ao clicar no botão e se o email está na página', () => {
     const { history } = renderWithRouterAndRedux(<App />);
 
     const emailField = screen.getByTestId(emailInput);
@@ -59,6 +60,13 @@ describe('Testes na página de login', () => {
     expect(walletEmailField).toBeInTheDocument();
     expect(walletEmailField.innerHTML).toBe(fakeEmail);
   });
-  test('', () => {
+  test('Verifica se os elementos estão sendo renderizados na página de carteira', async () => {
+    renderWithRouterAndRedux(<Wallet />);
+
+    const totalField = screen.getByTestId('total-field');
+    const currencyField = screen.getByTestId('header-currency-field');
+
+    expect(totalField).toBeInTheDocument();
+    expect(currencyField).toBeInTheDocument();
   });
 });
