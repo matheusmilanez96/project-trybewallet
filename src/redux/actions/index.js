@@ -1,6 +1,7 @@
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const FETCH_CURRENCIES = 'FETCH_CURRENCIES';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 const submitLogin = (loginInfo) => ({
   type: SUBMIT_LOGIN,
@@ -17,6 +18,19 @@ const addExpenses = (form) => ({
   payload: form,
 });
 
+const deleteExpense = (expenses) => ({
+  type: DELETE_EXPENSE,
+  payload: expenses,
+});
+
+export function delExp(expenses, id) {
+  return (dispatch) => {
+    const index = expenses.findIndex((obj) => obj.id === id);
+    expenses.splice(index, 1);
+    dispatch(deleteExpense(expenses));
+  };
+}
+
 export function submitForm(form) {
   return async (dispatch) => {
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -24,9 +38,8 @@ export function submitForm(form) {
     delete obj.USDT;
     const exchangeRates = { exchangeRates: obj };
     const newObj = { ...form, ...exchangeRates };
-    console.log(newObj);
     dispatch(addExpenses(newObj));
   };
 }
 
-export { submitLogin, fetchCurrencies, addExpenses };
+export { submitLogin, fetchCurrencies, addExpenses, deleteExpense };

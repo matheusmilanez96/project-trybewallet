@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { delExp } from '../redux/actions';
 
 class Table extends Component {
+  constructor() {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(id) {
+    const { expenses, dispatch } = this.props;
+    dispatch(delExp(expenses, id));
+  }
+
   render() {
     const { expenses } = this.props;
     return (
-      <div>
+      <table>
         <thead>
           <tr>
             <th scope="col">Descrição</th>
@@ -35,10 +47,19 @@ class Table extends Component {
                 }
               </td>
               <td>BRL</td>
+              <td>
+                <button
+                  data-testid="delete-btn"
+                  type="submit"
+                  onClick={ () => this.handleClick(exp.id) }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           </tbody>
         ))}
-      </div>
+      </table>
     );
   }
 }
@@ -49,6 +70,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(Object).isRequired,
 };
 

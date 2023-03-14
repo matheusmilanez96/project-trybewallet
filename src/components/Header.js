@@ -12,11 +12,11 @@ class Header extends Component {
         </h2>
         <h3 data-testid="total-field">
           {
-            Math.round((
+            Number((
               expenses.reduce((acc, curr) => (
                 acc + curr.value * curr.exchangeRates[curr.currency].ask
               ), 0)
-            ) * 100) / 100
+            )).toFixed(2)
           }
         </h3>
         <h4 data-testid="header-currency-field">

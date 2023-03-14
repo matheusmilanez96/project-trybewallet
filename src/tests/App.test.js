@@ -69,4 +69,37 @@ describe('Testes para o projeto', () => {
     expect(totalField).toBeInTheDocument();
     expect(currencyField).toBeInTheDocument();
   });
+  test('Verifica se os elementos da carteira estão na tela e interage com eles', async () => {
+    renderWithRouterAndRedux(<Wallet />);
+
+    const valueText = screen.getByText('Valor:');
+    const currencyText = screen.getByText('Moeda:');
+    const methodText = screen.getByText('Método de pagamento:');
+    const tagText = screen.getByText('Categoria:');
+    const descriptionText = screen.getByText('Descrição:');
+    const buttonEl = screen.getByRole('button');
+
+    expect(valueText).toBeInTheDocument();
+    expect(currencyText).toBeInTheDocument();
+    expect(methodText).toBeInTheDocument();
+    expect(tagText).toBeInTheDocument();
+    expect(descriptionText).toBeInTheDocument();
+    expect(buttonEl).toBeInTheDocument();
+
+    const valueField = screen.getByTestId('value-input');
+    const currencyField = screen.getByTestId('currency-input');
+    const methodField = screen.getByTestId('method-input');
+    const tagField = screen.getByTestId('tag-input');
+    const descriptionField = screen.getByTestId('description-input');
+
+    expect(valueField).toBeInTheDocument();
+    expect(currencyField).toBeInTheDocument();
+    expect(methodField).toBeInTheDocument();
+    expect(tagField).toBeInTheDocument();
+    expect(descriptionField).toBeInTheDocument();
+
+    userEvent.type(valueField, '0');
+    userEvent.type(descriptionField, 'first');
+    userEvent.click(buttonEl);
+  });
 });
